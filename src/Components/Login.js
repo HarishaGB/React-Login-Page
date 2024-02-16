@@ -1,13 +1,13 @@
 import React,{useState} from "react";
 import axios from "axios";
 
-const Login = () => {
+const Login = (setToken) => {
     const[user, setUser] = useState({
         email:"",
         password:"",
     });
 
-    const [token, setToken] = useState("");
+    
 
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");

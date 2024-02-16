@@ -1,7 +1,8 @@
 import React,{useState} from "react";
 import axios from "axios";
 
-const Signup = () => {
+const Signup = ({setToken}) => {
+
     const[user, setUser] = useState({
         name:"",
         email:"",
@@ -9,8 +10,7 @@ const Signup = () => {
         confirmPassword:""
     });
 
-    const [token, setToken] = useState("");
-
+    
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
