@@ -1,7 +1,9 @@
-import React,{useState} from "react";
+import React,{useState, useContext} from "react";
 import axios from "axios";
+import UserContext from "../Context/userContext";
+import { useNavigate } from "react-router-dom";
 
-const Signup = ({setToken}) => {
+const Signup = () => {
 
     const[user, setUser] = useState({
         name:"",
@@ -10,6 +12,8 @@ const Signup = ({setToken}) => {
         confirmPassword:""
     });
 
+    const {setToken} = useContext(UserContext);
+    const navigate = useNavigate();
     
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -34,8 +38,10 @@ const Signup = ({setToken}) => {
              "password": password,
          })
          console.log("Success", response.data);
-         setToken(response.data.data.token)
          setSuccessMessage(response.data.message)
+         setToken(response.data.data.token)
+          //saving token in local storage
+          localStorage.setItem("token", JSON.stringify(response.data.data.token))
          setErrorMessage("")
          setUser({
             name:"",
@@ -43,6 +49,8 @@ const Signup = ({setToken}) => {
             password:"",
             confirmPassword:""
          })
+         alert("Login Sucessful")
+         navigate("/dashboard")
     }
     catch(err){
         console.log("Failure", err);
@@ -79,7 +87,7 @@ const Signup = ({setToken}) => {
                 onChange={updateUser}
                 />
                 <button type="submit">Submit</button>
-                <hr/>
+                
             </form>
         </div>
     )
